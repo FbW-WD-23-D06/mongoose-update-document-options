@@ -5,11 +5,13 @@ const getUser = (req, res) => {
   console.log(userId, name);
 };
 const getAllUser = () => {};
+
 const addUser = async (req, res) => {
+  const { name, age, hobbies, address } = req.body;
   try {
-    const newUser = new User(req.body);
+    const newUser = new User({ name, age, hobbies, address });
     await newUser.save();
-    res.json({ msg: "User added successfuly!" });
+    res.json({ msg: "User added successfuly!", user: newUser });
   } catch (error) {
     console.log(error);
 

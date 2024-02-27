@@ -1,18 +1,21 @@
-// {name : " , age: , hobbies, email}
+// Document : {name : """ , age: , hobbies, email}
 
 import mongoose from "mongoose";
 
 const { Schema, model } = mongoose;
-// {VALUE}, {PATH}, {KIND}
+//
+// {VALUE} : value, {PATH} : Key, {KIND} : validation type
 
 const UserSchema = new Schema({
   name: {
     type: String,
+    // built-in validation
     required: [true, "you have to enter the name!"],
     minlength: [5, "{VALUE} must be at least 5 char!"],
   },
   age: {
     type: Number,
+    // custom validation
     validate: {
       validator: function (x) {
         return x < 10;
@@ -27,8 +30,15 @@ const UserSchema = new Schema({
       message: "{VALUE} is not accepted !",
     },
   },
-  email: {
-    type: String,
+  address: {
+    city: {
+      type: String,
+      minlength: [6, "{VALUE} must be more than 5 char !!"],
+    },
+    postalCode: {
+      type: Number,
+      min: [10000, "{VALUE} must be more than 9999"],
+    },
   },
 });
 
